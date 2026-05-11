@@ -33,8 +33,8 @@ const employeeSchema = new mongoose.Schema({
   },
   nationalId: {
     type: String,
-    set: (value) => encrypt(value),
-    get: (value) => decrypt(value)
+    set: (value) => value ? encrypt(value) : value,
+    get: (value) => value ? decrypt(value) : value
   },
   phone: {
     type: String,
