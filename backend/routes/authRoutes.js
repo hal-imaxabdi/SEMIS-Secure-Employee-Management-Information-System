@@ -1,22 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { 
-  login, 
-  verifyLoginOTP, 
-  forgotPassword, 
-  resetPassword 
+const {
+  login,
+  verifyLoginOTP,
+  forgotPassword,
+  forgotPasswordReset,
+  setPassword
 } = require('../controllers/authController');
+const { protect } = require('../middleware/auth');
 
-// @route   POST /api/auth/login
 router.post('/login', login);
-
-// @route   POST /api/auth/verify-otp
 router.post('/verify-otp', verifyLoginOTP);
-
-// @route   POST /api/auth/forgot-password
 router.post('/forgot-password', forgotPassword);
-
-// @route   POST /api/auth/reset-password
-router.post('/reset-password', resetPassword);
+router.post('/forgot-password/reset', forgotPasswordReset);
+router.put('/set-password', protect, setPassword);
 
 module.exports = router;

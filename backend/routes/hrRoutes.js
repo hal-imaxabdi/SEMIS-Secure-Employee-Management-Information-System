@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {
-  getAllEmployees, getEmployee, updateEmployee, archiveEmployee,
+  getAllEmployees, getEmployee, createEmployee, updateEmployee, archiveEmployee,
   getAllAttendance, recordAttendance, getAttendance,
   getAllPayroll, createPayroll, getPayroll,
   getAllLeave, reviewLeave
@@ -14,6 +14,7 @@ router.use(authorize('admin', 'hr'));
 
 // Employees
 router.get('/employees', getAllEmployees);
+router.post('/employees', createEmployee);
 router.get('/employees/:id', getEmployee);
 router.put('/employees/:id', updateEmployee);
 router.put('/employees/:id/archive', archiveEmployee);

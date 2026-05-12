@@ -3,6 +3,7 @@ const Attendance = require('../models/Attendance');
 const Payroll = require('../models/Payroll');
 const Leave = require('../models/Leave');
 const AuditLog = require('../models/AuditLog');
+const User = require('../models/User');
 
 // ─── EMPLOYEES ───────────────────────────────────────────
 
@@ -20,6 +21,52 @@ const getEmployee = async (req, res) => {
     const employee = await Employee.findById(req.params.id).populate('userId', 'email role isActive');
     if (!employee) return res.status(404).json({ message: 'Employee not found.' });
     res.status(200).json(employee);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+const createEmployee = async (req, res) => {
+  const { email, role, firstName, lastName, department, jobTitle, hireDate } = req.body;
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ message: 'User with that email already exists.' });
+
+    const tempPassword = 'Temp@' + Math.random().toString(36).slice(-8);
+
+    const user = await User.create({
+      email,
+      password: tempPassword,
+      role: role || 'employee',
+      isActive: true,
+      mustResetPassword: true
+    });
+
+    const employeeCount = await Employee.countDocuments();
+    const employeeId = `NXC-${String(employeeCount + 1).padStart(3, '0')}`;
+
+    await Employee.create({
+      userId: user._id,
+      employeeId,
+      firstName,
+      lastName,
+      department,
+      jobTitle,
+      hireDate: new Date(hireDate),
+      status: 'active'
+    });
+
+    await AuditLog.create({
+      userId: req.user._id,
+      action: 'USER_CREATED',
+      target: user._id,
+      targetModel: 'User',
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+      details: { email, role }
+    });
+
+    res.status(201).json({ message: 'Employee created successfully.', employeeId, tempPassword });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
@@ -177,7 +224,7 @@ const reviewLeave = async (req, res) => {
 };
 
 module.exports = {
-  getAllEmployees, getEmployee, updateEmployee, archiveEmployee,
+  getAllEmployees, getEmployee, createEmployee, updateEmployee, archiveEmployee,
   getAllAttendance, recordAttendance, getAttendance,
   getAllPayroll, createPayroll, getPayroll,
   getAllLeave, reviewLeave
