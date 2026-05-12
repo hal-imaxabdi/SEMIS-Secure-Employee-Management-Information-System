@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 const navItems = {
- admin: [
+  admin: [
     { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
     { label: 'Users', icon: Users, path: '/users' },
     { label: 'Employees', icon: UserCheck, path: '/employees' },
@@ -18,18 +18,18 @@ const navItems = {
   ],
   hr: [
     { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-    { label: 'Employees', icon: UserCheck, path: '/employees' },
-    { label: 'Attendance', icon: Calendar, path: '/attendance' },
-    { label: 'Payroll', icon: CreditCard, path: '/payroll' },
-    { label: 'Leave', icon: FileText, path: '/leave' },
+    { label: 'Employees', icon: UserCheck, path: '/hr/employees' },
+    { label: 'Attendance', icon: Calendar, path: '/hr/attendance' },
+    { label: 'Payroll', icon: CreditCard, path: '/hr/payroll' },
+    { label: 'Leave', icon: FileText, path: '/hr/leave' },
   ],
   employee: [
-  { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-  { label: 'My Profile', icon: UserCheck, path: '/my-profile' },
-  { label: 'My Attendance', icon: Calendar, path: '/my-attendance' },
-  { label: 'My Payslips', icon: CreditCard, path: '/my-payslips' },
-  { label: 'My Leave', icon: FileText, path: '/my-leave' },
-],
+    { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
+    { label: 'My Profile', icon: UserCheck, path: '/my-profile' },
+    { label: 'My Attendance', icon: Calendar, path: '/my-attendance' },
+    { label: 'My Payslips', icon: CreditCard, path: '/my-payslips' },
+    { label: 'My Leave', icon: FileText, path: '/my-leave' },
+  ],
 };
 
 export default function Sidebar() {

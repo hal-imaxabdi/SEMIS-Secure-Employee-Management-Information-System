@@ -19,6 +19,12 @@ import MyAttendance from './pages/MyAttendance';
 import MyPayslips from './pages/MyPayslips';
 import MyLeave from './pages/MyLeave';
 
+// Admin view-only pages (reuse HR pages but read-only via role check)
+import Employees from './pages/Employees';
+import Attendance from './pages/Attendance';
+import Payroll from './pages/Payroll';
+import Leave from './pages/Leave';
+
 function DashboardRouter() {
   const { user } = useAuth();
   if (user?.role === 'admin') return <AdminDashboard />;
@@ -38,35 +44,35 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          {/* First login password reset — protected but no layout */}
-          <Route
-            path="/reset-password"
-            element={
-              <ProtectedRoute roles={['admin', 'hr', 'employee']}>
-                <ResetPassword />
-              </ProtectedRoute>
-            }
-          />
+          {/* First login password reset */}
+          <Route path="/reset-password" element={
+            <ProtectedRoute roles={['admin', 'hr', 'employee']}>
+              <ResetPassword />
+            </ProtectedRoute>
+          } />
 
           {/* Shared dashboard */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute roles={['admin', 'hr', 'employee']}>
-                <DashboardRouter />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/dashboard" element={
+            <ProtectedRoute roles={['admin', 'hr', 'employee']}>
+              <DashboardRouter />
+            </ProtectedRoute>
+          } />
 
           {/* Admin only */}
           <Route path="/users" element={<ProtectedRoute roles={['admin']}><Users /></ProtectedRoute>} />
           <Route path="/audit-logs" element={<ProtectedRoute roles={['admin']}><AuditLogs /></ProtectedRoute>} />
 
-          {/* HR + Admin */}
-          <Route path="/employees" element={<ProtectedRoute roles={['admin', 'hr']}><HREmployees /></ProtectedRoute>} />
-          <Route path="/attendance" element={<ProtectedRoute roles={['admin', 'hr']}><HRAttendance /></ProtectedRoute>} />
-          <Route path="/payroll" element={<ProtectedRoute roles={['admin', 'hr']}><HRPayroll /></ProtectedRoute>} />
-          <Route path="/leave" element={<ProtectedRoute roles={['admin', 'hr']}><HRLeave /></ProtectedRoute>} />
+          {/* Admin view-only pages */}
+          <Route path="/employees" element={<ProtectedRoute roles={['admin']}><Employees /></ProtectedRoute>} />
+          <Route path="/attendance" element={<ProtectedRoute roles={['admin']}><Attendance /></ProtectedRoute>} />
+          <Route path="/payroll" element={<ProtectedRoute roles={['admin']}><Payroll /></ProtectedRoute>} />
+          <Route path="/leave" element={<ProtectedRoute roles={['admin']}><Leave /></ProtectedRoute>} />
+
+          {/* HR only */}
+          <Route path="/hr/employees" element={<ProtectedRoute roles={['hr']}><HREmployees /></ProtectedRoute>} />
+          <Route path="/hr/attendance" element={<ProtectedRoute roles={['hr']}><HRAttendance /></ProtectedRoute>} />
+          <Route path="/hr/payroll" element={<ProtectedRoute roles={['hr']}><HRPayroll /></ProtectedRoute>} />
+          <Route path="/hr/leave" element={<ProtectedRoute roles={['hr']}><HRLeave /></ProtectedRoute>} />
 
           {/* Employee only */}
           <Route path="/my-profile" element={<ProtectedRoute roles={['employee']}><MyProfile /></ProtectedRoute>} />
