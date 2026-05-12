@@ -78,14 +78,19 @@ This is the core differentiator of SEMIS. Every item maps to a specific OWASP To
 > There is no public registration. All accounts are created exclusively by an Admin.
 
 ### Authentication Flow
-Login (email + password)
-↓
-OTP sent to email
-↓
-OTP verified → JWT issued
-↓
-Role-specific dashboard
-First login → forced password reset before dashboard access
+
+```
+1. Login (email + password)
+        ↓
+2. OTP sent to registered email
+        ↓
+3. OTP verified → JWT issued
+        ↓
+4. Redirected to role-specific dashboard
+
+⚠ First login → forced password reset before dashboard access
+```
+
 ---
 
 ## Screenshots
@@ -131,25 +136,39 @@ First login → forced password reset before dashboard access
 ---
 
 ## Project Structure
+
+```
 semis/
 ├── backend/
 │   ├── server.js
-│   ├── config/db.js
-│   ├── models/           # User, Employee, Payroll, Attendance, Leave, AuditLog
-│   ├── middleware/        # auth.js, rbac.js, rateLimiter.js
-│   ├── routes/           # authRoutes, adminRoutes, hrRoutes, employeeRoutes
-│   ├── controllers/      # authController, adminController, hrController, employeeController
-│   └── utils/            # encryption.js, emailService.js, otpService.js
+│   ├── config/
+│   │   └── db.js
+│   ├── models/
+│   │   └── User, Employee, Payroll, Attendance, Leave, AuditLog
+│   ├── middleware/
+│   │   └── auth.js, rbac.js, rateLimiter.js
+│   ├── routes/
+│   │   └── authRoutes, adminRoutes, hrRoutes, employeeRoutes
+│   ├── controllers/
+│   │   └── authController, adminController, hrController, employeeController
+│   └── utils/
+│       └── encryption.js, emailService.js, otpService.js
 │
 ├── frontend/
 │   └── src/
-│       ├── pages/        # Login, Dashboards, HR pages, Employee pages
-│       ├── components/   # Sidebar, Layout
-│       ├── context/      # AuthContext.jsx
-│       └── routes/       # ProtectedRoute.jsx
+│       ├── pages/
+│       │   └── Login, Dashboards, HR pages, Employee pages
+│       ├── components/
+│       │   └── Sidebar, Layout
+│       ├── context/
+│       │   └── AuthContext.jsx
+│       └── routes/
+│           └── ProtectedRoute.jsx
 │
 └── docs/
-└── screenshots/
+    └── screenshots/
+```
+
 ---
 
 ## Getting Started
@@ -188,7 +207,7 @@ npm install
 npm run dev
 ```
 
-### 4. Seed the database (optional)
+### 4. Seed the database (optional - Create a seed.js with users)
 
 ```bash
 cd backend
@@ -291,6 +310,3 @@ ENCRYPTION_KEY=your_32_character_encryption_key_
 ## Author
 
 **Halima Mohamed Abdirizak**
-Portfolio project — built to demonstrate full-stack development with real-world application security practices.
-
-[![GitHub](https://img.shields.io/badge/GitHub-hal--imaxabdi-black?logo=github)](https://github.com/hal-imaxabdi)
