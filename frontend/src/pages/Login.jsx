@@ -32,9 +32,17 @@ export default function Login() {
     setLoading(true);
     try {
       const res = await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
-      login(res.data.token, res.data.role, res.data.mustResetPassword);
+      const { token, role, mustResetPassword } = res.data;
+
+      login(token, role, mustResetPassword);
       toast.success('Welcome back');
-      navigate('/dashboard');
+
+      // First login — force password reset before entering the system
+      if (mustResetPassword) {
+        navigate('/reset-password');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       toast.error(err.response?.data?.message || 'Invalid OTP');
     } finally {

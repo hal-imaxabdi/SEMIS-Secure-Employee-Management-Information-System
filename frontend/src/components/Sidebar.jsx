@@ -24,11 +24,12 @@ const navItems = {
     { label: 'Leave', icon: FileText, path: '/leave' },
   ],
   employee: [
-    { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-    { label: 'My Attendance', icon: Calendar, path: '/my-attendance' },
-    { label: 'My Payslips', icon: CreditCard, path: '/my-payroll' },
-    { label: 'Leave Request', icon: FileText, path: '/my-leave' },
-  ],
+  { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
+  { label: 'My Profile', icon: UserCheck, path: '/my-profile' },
+  { label: 'My Attendance', icon: Calendar, path: '/my-attendance' },
+  { label: 'My Payslips', icon: CreditCard, path: '/my-payslips' },
+  { label: 'My Leave', icon: FileText, path: '/my-leave' },
+],
 };
 
 export default function Sidebar() {

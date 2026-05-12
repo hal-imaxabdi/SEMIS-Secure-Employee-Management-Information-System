@@ -38,7 +38,7 @@ export default function ForgotPassword() {
     }
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/auth/reset-password', {
+      await axios.post('http://localhost:5000/api/auth/forgot-password/reset', {
         email, otp, newPassword
       });
       toast.success('Password reset successfully');
