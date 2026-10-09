@@ -2,21 +2,8 @@
 
 > A full-stack internal HR platform built for NexCore Technologies, a fictional mid-sized software firm. SEMIS demonstrates real-world application security practices alongside complete HR management functionality.
 
+
 ![Admin Dashboard](docs/screenshots/admindashboard.png)
-
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Tech Stack](#tech-stack)
-- [Security Features](#security-features)
-- [User Roles](#user-roles)
-- [Screenshots](#screenshots)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [API Endpoints](#api-endpoints)
 
 ---
 
@@ -304,9 +291,3 @@ ENCRYPTION_KEY=your_32_character_encryption_key_
 | GET | `/api/employee/payroll` | Get own payslips |
 | GET | `/api/employee/leave` | Get own leave requests |
 | POST | `/api/employee/leave` | Submit leave request |
-
----
-
-## Author
-
-**Halima Mohamed Abdirizak**
